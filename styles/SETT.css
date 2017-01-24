@@ -1,0 +1,232 @@
+body {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    font-family: Verdana, sans-serif;
+    margin-left: 0.25in;
+    margin-right: 0.25in;
+    min-width: 800px;
+}
+
+.header {
+    float: left;
+    width: 100%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.lower_header {
+    height: 34px;
+    float: left;
+    width: 100%;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 25px;
+}
+
+.social {
+    margin-top: 6px;
+}
+
+span.rssRow  {
+    margin: 33px;
+    background:transparent url(../images/rss_icon_12x12.gif) no-repeat scroll 0;
+    padding-left:18px;
+}
+
+.headimage_container {
+    position: relative;
+    float: left;
+    width: 100%;
+    background: url('../images/Middle.png') repeat-x 35px;
+    height: 123px;
+}
+
+.headerimage_leftlogo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: white;
+    width: 180px;
+    height: 123px;
+}
+
+.headimage_left {
+    position: absolute;
+    background-color: white;
+    top: 33px;
+    left: 180px;
+    width: 10px;
+}
+
+.headimage_right {
+    position: absolute;
+    background-color: white;
+    width: 278px;
+    right: 0;
+    margin-top: 33px;
+}
+
+a.career {
+    font-weight: bold;
+}
+
+code {
+    font-family: "Courier New", monospace;
+}
+
+div.center {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: left;
+}
+
+h3 {
+    text-align: left;
+}
+
+h4 {
+    text-align: left;
+}
+
+h5 {
+    text-align: left;
+}
+
+hr {
+    height: 1px;
+    color: rgb(17, 59, 86);
+    background-color: transparent;
+}
+
+kbd {
+    font-family: "Courier New", monospace;
+}
+
+p {
+    text-align: justify;
+}
+
+p.author {
+    text-align: center;
+}
+
+p.footer {
+    text-align: justify;
+}
+
+pre {
+    font-family: "Courier New", monospace;
+}
+
+.quicklinks {
+    text-align: right;
+}
+
+.red {
+    color: rgb(255, 0, 0);
+    background-color: rgb(255, 255, 255);
+}
+
+.green {
+    color: rgb(0, 128, 0);
+    background-color: rgb(255, 255, 255);
+}
+
+.blue {
+    color: rgb(0, 0, 192);
+    background-color: rgb(255, 255, 255);
+}
+
+.code {
+    background-color: #FFFFF0;
+    border: dashed black 1px;
+    padding-left: 10px;
+}
+
+.comment {
+    color: rgb(128, 128, 128);
+    font-weight: normal;
+    font-style: italic;
+}
+
+#container {
+    text-align: center;
+}
+a, figure {
+    display: inline-block;
+}
+figcaption {
+    margin: 10px 0 0 0;
+    font-variant: small-caps;
+    font-family: Arial;
+    font-weight: bold;
+    color: black;
+}
+figure {
+    padding: 5px;
+}
+img:hover {
+    transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+}
+img {
+    transition: transform 0.2s;
+    -webkit-transition: -webkit-transform 0.2s;
+    -moz-transition: -moz-transform 0.2s;
+    -o-transition: -o-transform 0.2s;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+caption {
+    margin: 10px 0 0 0;
+    font-variant: small-caps;
+    font-family: Arial;
+    font-weight: bold;
+    color: black;
+}
+
+/* Put a border around prettyprinted code snippets. */
+pre.prettyprint { padding: 2px; border: 1px solid #888 }
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L5,
+li.L6,
+li.L7,
+li.L8 
+{ list-style-type: decimal !important }
+/* Alternate shading for lines */
+li.L1,
+li.L3,
+li.L5,
+li.L7,
+li.L9 { background: #eee }
