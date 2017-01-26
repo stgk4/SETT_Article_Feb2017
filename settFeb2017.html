@@ -24,7 +24,7 @@ rel="stylesheet" type="text/css" />
 <body>
     <!--#include virtual="header.shtml" -->
 
-    <h1>Leveraging Prediction API's and CloudML for practical applications</h1>
+    <h1>On the capabilities of Google's prediction API for building practical applications</h1>
 
     <p class="author">
         by
@@ -34,16 +34,21 @@ rel="stylesheet" type="text/css" />
 
     <h2>Introduction</h2>
     <p>
-      Google Cloud Platform and CloudML
+		We have come so far from building applications on a single machine in a single location to a stage where we are building applications on the infrastructure
+		so remote to us, and even more today, we are able to leverage the pre-built applications which are offered as a service to make Machine Learning work for you. 
+		The enterprises or an individual trying to solve a problem with machine learning, thereby do not have to worry about fault tolerance of the machines, 
+		performance limitations, and tuning the machine learning algorithms. Instead, they can invest time on data preparation, incorporating the domain knowledge 
+		in the the machine learning system and acting on the offerings (prediction results) from these API's to create value to the business. 
+		Most of the machine learning capabilites are made available to everyone by Prediction API's through their fast, reliable and cost-effective infraustructure.
+		There are many prediction API's available currently, such as Amazon Machine Learning, Big ML, Google prediction API and many others. Every prediction
+		API differ in terms of their services, there is no single metric to evaluate the performance of these API's [a comparison study of some of the prediction API's 
+		can be found at https://www.programmableweb.com/news/comparing-four-machine-learning-apis-performance/elsewhere-web/2015/09/19]. However,it is possible to 
+		identify an API or a combination of them that works better for the context of a specific application which needs
+		expert knowledge and deeper look into the context of the problem, details of which is out of the scope of the current article, and will be a content 
+		relevant to our future article. 
+		For the purposes of this article, we chose to describe about the capabilities of the Google Prediction API. In this article, you will learn about the possiblities
+		the Google's prediction API offer, with the help of use-cases implemented with it.
     </p>
-    <p>
-      Machine learning workflow
-    </p>
-    <p>
-      Machine learning workflow on Google Cloud Platform
-    </p>
-    
-    <h2>Goole Prediction APIS</h2>
 	
 	<p>
 	Google prediction API offers machine learning as a service. It learns from a user given 
@@ -131,7 +136,7 @@ rel="stylesheet" type="text/css" />
 	<h3>Who is the audience for Prediction API's?</h3>
 	
 	<p>
-	Traditionally to work with a machine leaning problem, you normally start with preprocessing your data
+	Traditionally, to work with a machine leaning problem, you normally start with preprocessing your data
 	by performing some steps like dealing with missing data, input normalization, dataset splitting in to training and validation sets. 
 	Then comes the step of model selection, based on the correlations in your training data, you identify a model that fits your scenario. 
 	</p>
@@ -144,6 +149,18 @@ rel="stylesheet" type="text/css" />
 	Google's blackbox implementaion approach for prediction API makes it clear that it wants to ease the implementation to non-coders also. In a way, the mathematical
 	expertise required to build, analyze the machine learning models, is eliminated by the capabilities of the API. One 
 	can invest more time in problem formulation, data-collection and making a flaw-less end to end implementation, with prediction API.
+	</p>
+	
+	
+	<h3>Using a Hosted Model</h3>
+	
+	<p>
+	The Prediction API hosts a gallery of user-submitted models that you can use. This is convenient if you don't have the time, resources, or expertise 
+	to build a model for a specific topic. You can see a list of hosted models in the Prediction Gallery built by Google Prediction API Team which 
+	include Language Identifier, Sentiment identifier and Tag Categorizer as of now. The Prediction API is working to enable customers to expose their model 
+	for paid use by other API users in the future. The only method call supported on a hosted model is predict. 
+	The gallery will list the URL required for a prediction call to a specific model. If a model is not free to use, your project must have billing enabled in the 
+	Cloud Platform Console. Note that hosted models are versioned; this means that when a model is retrained, it will get a new path that includes the version number. Periodically check the gallery to ensure that you're using the latest version of a hosted model. The model version number appears in the access URL. Different versions might return different scores for the same input.
 	</p>
 
 	<h3>Prediction API: A real use-case for sentiment analysis</h3>
@@ -170,7 +187,7 @@ rel="stylesheet" type="text/css" />
 	
 	<p>
 	For our current problem, since we are going to identify a predefined label "Negative" or "Positive", this is clearly a classification problem. 
-	The second point is important as you can have a redundant data which will inturn affects the model accuracy. Typically, 
+	The second point is important as you can have a redundant data which will in turn affects the model accuracy. Typically, 
 	if the features are too specific to the current data-set, you may end up with a very large generalization error, resulting in overfitting. 
 	This is the piece you need to handle yourself, to better assist the Prediction API predict accurate labels for your test inputs. 
 	However, preprocessing step is not mandatory for using Prediction API, you need it to build a good model corresponding to your training set.
@@ -276,19 +293,19 @@ passing the name of the model and the query.
     <figcaption>Prediction response containing the prediction label and probability scores
 </div>
 	
-	<h3>Summary of the Prediction API</h3>
+	<h3>Conclusions</h3>
 	<p>
-	As of now, the prediction API seems to be abstracted very much to the developers. The control is only
+	As of now, the Google prediction API seems to be abstracted very much to the developers. The control is only
 	on the data preparation and adding additional data-sets for updating the model, these forms the either 
 	end-points of the machine learning pipeline. Optimistically, a key advantage with this approach is, it saves lot of
 	time in building the models, and also the flexibility of adding additional data-sets even after the training is completed, 
 	resulting in model update on the fly.
 	</p>
     
-    <h2>Conclusion</h2>
+   <!--  <h2>Conclusion</h2>
 
     This article only examines basic ideas and
-    usages of GCP to build machine learning workflow.
+    usages of GCP to build machine learning workflow. -->
 
 
 <h3>Acknowledgements</h3>
