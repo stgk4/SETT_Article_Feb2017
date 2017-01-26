@@ -1,0 +1,302 @@
+<h2>Machine learning workflow on Google Cloud Platform</h2>
+	
+    If users prefer or must train their own model and make prediction
+    base the model, components of Google Cloud Platform (GCP) could be
+    coordinated to support this requirement.  In this section we
+    describe how to prepare data, train and serve custimzed model
+    directly on GCP through cooperation between different
+    components. The machine learning task example used here is to
+    identify flowers based on a small data set flower images. The code
+    comes from
+    the <a 
+href="https://github.com/GoogleCloudPlatform/cloudml-samples/tree/master/flowers">samples
+    of CloudML</a>.
+    <div id="container">
+      <a href="#">
+	<figure>
+	  <img src="./figures/cloudml-pl.jpg" alt="cloudml-pl" width="400" height="400"/>
+	  <figcaption>Build and train model by GCP components 
+	</figure>
+      </a>
+    </div>
+    The above figure depicts the GCP components involved in machine
+    learning workflow. To initiate and control the workflow, users can
+    interact with other GCP components through commandline or
+    Datalab. GCP provides a comprenhensive commands to manage stages
+    of machine learning workflow. For example,
+    <code>gcloud beta ml train </code> will submit a train task into
+    GCP (Details of parameters in later section). Datalab is a highly
+    customized Python notebook engine (based
+    on <a href="https://ipython.org/">IPython</a>) which adds support
+    libraries and other enivronment to use GCP directly. It is
+    convenient to data scientists or researchers who are more familiar
+    to Python script environment to run the workflow. Dataflow is a
+    core component to process big data on GCP. It provides a highly
+    parallel and fault tolerant environment hence it is suitable for
+    data preprocessing before running machine learning tasks. Machine
+    learninng is the main component for machine learning tasks and
+    used for model training and serving. The training data and
+    intemediate and final model can be stored on Storage component.
+    
+    <h3>Dataflow</h3>
+
+    Dataflow is a collection of SDKs and a managed service for
+    building parallelized data processing pipelines. It can support
+    both streaming and batch execution of pipeline.
+
+    Major benefits of Dataflow are that 1) it provides a simple
+    programming model based on concepts of pipeline, collection and
+    . This programming model is open sourced as <a href="">Apache
+    Beam</a>. 2) it is an autoamted scalable service so users do not
+    consider resources management at the time of programming. In a
+    machine learning task dataflow can be used as data preprocessing,
+    features extracting.
+
+    <h4>Apache Beam</h4>
+    Apache Beam provides a high level abstract of both of batch and
+    streaming data processing and implements  
+     <a href="http://www.vldb.org/pvldb/vol8/p1792-Akidau.pdf">Dataflow
+     model</a>. Beam defines a set of core primitives and rich windows
+     and streaming operations. Since most tasks of machine learning
+     model training use batch operations to feed the data to the
+     training system so in this article we only focus on the
+     part related to batch training in Beam.
+
+     The core primitives are defined in Beam is
+     <ul>
+       <li><b>ParDo</b> for parallel processing. Each input element
+	 to be processed (which itself may be a finite collection) is provided
+	 to a user-defined function (called a DoFn in Dataflow), which can
+	 yield zero or more output elements per input</li>
+       <li><b>GroupByKey</b> to generate key-grouping (key, value) pairs.</li>
+     </ul>
+    In batch mode these two core operation can be easily applied to
+    the operation on the data set while in streaming mode
+    some complicate widnow semantics must be associated
+    with <code>GroupByKey</code>.
+
+    Other key abstracts in beam includes
+    <ul>
+      <li><b>Pipeline</b> A Pipeline encapsulates your entire
+      data processing task, from start to finish. This includes
+      reading input data, transforming that data, and writing output
+      data. </li>
+      <li><b>PCollection</b> A PCollection represents a
+      distributed data set that your Beam pipeline operates on.  The
+      initial PCollection of the pipeline can be created by reading
+      reading data from an external data source and in-memory
+      data. Note that PCollection is only necessary in Java API but
+      not in Python API. </li>
+
+      <li><b>Transform</b> A Transform represents a data
+      processing operation, or a step, in your pipeline. Every
+      Transform takes one or more input and perfroms a processing
+      function on the elements of input and produce results. </li>
+
+      <li><b>I/O Source and Sink</b> Beam provides Source and
+      Sink APIs to represent reading and writing data,
+      respectively. They can used as the initial data source and final
+      data sink. </li>
+    </ul>
+       
+    <h4>Data preprocessing and feature extracting</h4>
+    Before feeding into model training, some preprocessing step are
+    often necessary. These steps can be done in Dataflow and
+    implemented based on the model of Beam. In flower example the
+    preprocessing steps include:
+    <ul>
+      <li><em>Extract label</em> Read labels from the dictionary and
+      assign id to them.</li>
+      <li><em>Convert format</em> Conver the image format to JPEG.</li>
+      <li><em>Generate training data</em> This step actually includes
+      some substeps. First the image are resized and normalize for
+      convience of model training. Second the features are extracting
+      from the images through a
+      pretained <a href="https://github.com/tensorflow/models/tree/master/inception">Google
+      inception model</a>. Finally the image (in csv format), id and
+      features are assemble into a data structure
+      name <code>TFExample</code> and write to Cloud Storage. </li>
+    </ul>
+    
+    <div>
+    <pre class="prettyprint">
+    input_source = beam.io.TextFileSource(
+       opt.input_path, strip_trailing_newlines=True) 
+    _ = (p
+       | 'Read input' >> beam.Read(input_source)
+       | 'Parse input' >> beam.Map(lambda line: csv.reader([line]).next())
+       | 'Extract label ids' >> beam.ParDo(ExtractLabelIdsDoFn(), 
+beam.pvalue.AsIter(labels))
+       | 'Read and convert to JPEG' >> beam.ParDo(ReadImageAndConvertToJpegDoFn())
+       | 'Embed and make TFExample' >> beam.ParDo(TFExampleFromImageDoFn())
+       | 'Save to disk' >> SaveFeatures(opt.output_path))
+      </pre>
+    <figcaption>Configure Beam Pipeline for flower example
+    </div>
+    After submitting this pipeline on Dataflow through its job API, it
+    launches a Kubernete containers cluster. On this cluster, Dataflow
+    automatically generate parallel tasks according to Beam
+    primitives, for example ParDo and assign these tasks to different
+    containers. When runing the pipeline Dataflow takes care of
+    resources management, fault tolerance and other routine cluster
+    operations. Simply put Dataflow is a management service to submit,
+    run and maintain your data precessing pipeline.
+
+    Although in the machine learning task Dataflow is mainly
+    responsible to data preprocessing and feature engineering, some
+    simple model training tasks can be implemented on Beam. However
+    since Dataflow focus on parallel data processing it may not be
+    efficient to implement a model training algorithm directly on
+    Dataflow. For normal model training and serving task, GCP Cloud
+    Machine Learning is a suitable service.
+      
+    <h3>Machine Learning</h3>
+    GCP Cloud Machine learning (CloudML) is the core component to
+    train and serve models. Behind the hood, CloudML like Beam is a
+    managed service running on a kubernetes cluster. And like Beam
+    too, the training and serving workflow model is implemented on
+    Tensorflow, a distributed framework to support machine learning and deep
+    learning tasks. 
+
+    <h4>Tensorflow</h4>
+    <p>
+    TensorFlow is an interface for expressing
+    machine learning algorithms, and an implementation for executing
+    such algorithms.  Tensorflow aims to run machine learning
+    algorithms on a wide variety of heterogenous systems, from mobile
+    devices to large scale distributes systems without little or no
+    efforts on portability. Tensorflow is designed to be flexible and
+    express a broad spectrum of algorithms, especially training and
+    inference algorithms for deep neural network models. It can be
+    used in research and production environments across areas such as
+    speech recognition, computer vision, robotics, information
+    retrieval, natural language processing, geographic information
+    extraction, and computational drug discovery.
+    </p>
+    <p>
+    The programming model of TensorFlow is a directed <em>graph</em>, which is
+    composed of a set of <em>nodes</em>. The graph represents a dataflow
+    computation, with extensions for allowing some kinds of nodes to
+    maintain and update persistent state and for branching and looping
+    control structures. A more intuitive explanasion of TensorFlow
+    model is that graph represents high level structure of machine
+    learning algorithm and the node represents basic operations in the
+    algorithm.  A state-of-the-art image recognition deep neural
+    network, inception, used by the flower model can be visualized as a
+    directed graph as following:
+    </p>
+    <div id="container">
+      <a href="#">
+	<figure>
+	  <img src="./figures/inception_v3_architecture.png" alt="inception" width="1000" 
+height="400"/>
+	  <figcaption>TensorFlow model of deep learning network in
+	  flower example </figcaption>
+	</figure>
+      </a>
+    </div>
+    Other key abstracts in TensorFlow are <em>tensor</em>
+    and <em>device</em>. A tensor is a typed, multidimensional array,
+    flowing throught and storing intermediate computation results
+    between nodes. A device is the abstract of the hardware running the
+    node. In a distributed system a worker may contain several
+    devices. Each of them represents a hardware resource to run the
+    computation, for example, device of <em>CPU</em>
+    or <em>GPU</em>. A core function of TensorFlow is to assign the
+    computation to different devices so to spread the computation of
+    the whole graph to the whole distributed system.
+
+    To interact with users, TensorFlow provides the abstract
+    of <em>Session</em>. To create a computation graph, the Session
+    interface supports to augment the current graph by adding
+    additional nodes (the initial graph when a session is created is
+    empty). Tensor can not be used to persistate the results so there
+    is anothe abstract <em>Session</em> to allow user store or input
+    the data into the graph. The following code snippet is small
+    example of a TensorFlow model and its visualization. 
+    
+    <pre class="prettyprint">
+      import tensorflow as tf
+      b = tf.Variable(tf.zeros([100]))                   # 100-d vector, init to zeroes
+      W = tf.Variable(tf.random_uniform([784,100],-1,1)) # 784x100 matrix w/rnd vals
+      x = tf.placeholder(name="x")                       # Placeholder for input
+      relu = tf.nn.relu(tf.matmul(W, x) + b)             # Relu(Wx+b)
+      C = [...]                                          # Cost computed as a function of 
+Relu
+      s = tf.Session()
+      for step in xrange(0, 10):
+         input = ...construct 100-D input array ...      # Create 100-d vector for input
+         result = s.run(C, feed_dict={x: input})         # Fetch cost, feeding x=input
+         print step, result
+      </pre>
+    <figcaption>A simple example of TensorFlow model</figcaption>
+ 
+    <div id="container">
+      <a href="#">
+	<figure>
+	  <img src="./figures/simple-tf.jpg" alt="simple" width="220" height="400"/>
+	  <figcaption>Visualization of the simple Tensorflow model</figcaption>
+	</figure>
+      </a>
+    </div>
+    
+    <h4>Model training</h4>
+    Model training on CloudML is
+    straightforward. Like Dataflow, CloudML has a set of APIs for
+    commandline and Python to manage training job. The user can submit
+    the model training job with options for the configuration training
+    cluster. 
+    
+    <pre class="prettyprint">
+      gcloud beta ml jobs submit training "$JOB_ID" \
+      --module-name trainer.task \
+      --package-path trainer \
+      --staging-bucket "$BUCKET" \
+      --region us-central1 \
+      -- \
+      --output_path "${GCS_PATH}/training" \
+      --eval_data_paths "${GCS_PATH}/preproc/eval*" \
+      --train_data_paths "${GCS_PATH}/preproc/train*"
+      </pre>
+    <figcaption>Submit a model training job of the flower model by
+    commandline</figcaption>
+    
+    
+    <h4>Model serving</h4>
+    Model serving is another managed service included in CloudML. The
+    users first create a model through commandline or Python API. Then
+    a model namespace is created. Under this model namespace users can
+    create different instances of inference model. The second step is
+    to create a version of the model for each version it is a lived
+    inference model running on a container/containers. CloudML
+    automatically add API service in this inference model so users can
+    acquire prediction results through provided REST API.
+
+    <pre class="prettyprint">
+      gcloud beta ml versions create "$VERSION_NAME" \
+      --model "$MODEL_NAME" \
+      --origin "${GCS_PATH}/training/model"
+      gcloud beta ml versions set-default "$VERSION_NAME" --model "$MODEL_NAME"
+      </pre>
+    <figcaption>Create a model namespace and lived model instance for 
+prediction</figcaption>
+
+    <h3>Storage</h3>
+    Cloud storage is used to store data and model in the machine
+    learning workflow. The CloudML model training set the
+    Cloud Storage as default location for input and output data. After
+    training the model write into the Cloud Storage and served as a
+    prediction service by CloudML.
+    	
+    <h3>Datalab</h3>
+    Python notebook especially <a href="">Jupyter</a> is a convenient
+    tool for most data scientist. The notebook can integrate python
+    code and comments in a interactive environment and help data
+    scientist to find insights and debug learning algorithm
+    quickly. Datalab is a highly customized interactive environment
+    for Python based on <code>Jupyter</code>. Datalab integrates
+    TensorFlow, Beam and GCP APIs so users can directly write and run
+    code to preprocess data and train model. 
+    
+
+    <h2>TBD</h2>
