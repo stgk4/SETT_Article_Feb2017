@@ -163,7 +163,9 @@ rel="stylesheet" type="text/css" />
 	include Language Identifier, Sentiment identifier and Tag Categorizer as of now. The Prediction API is working to enable customers to expose their model 
 	for paid use by other API users in the future. The only method call supported on a hosted model is predict. 
 	The gallery will list the URL required for a prediction call to a specific model. If a model is not free to use, your project must have billing enabled in the 
-	Cloud Platform Console. Note that hosted models are versioned; this means that when a model is retrained, it will get a new path that includes the version number. Periodically check the gallery to ensure that you're using the latest version of a hosted model. The model version number appears in the access URL. Different versions might return different scores for the same input.
+	Cloud Platform Console. Note that hosted models are versioned; this means that when a model is retrained, it will get a new path that includes the version number. 
+	Periodically check the gallery to ensure that you're using the latest version of a hosted model. The model version number appears in the access URL. 
+	Different versions might return different scores for the same input.
 	</p>
 
 	<h3>Prediction API: A real use-case for sentiment analysis</h3>
@@ -207,8 +209,9 @@ rel="stylesheet" type="text/css" />
 	on this are provided at https://developers.google.com/ad-exchange/rtb/open-bidder/google-app-guide.
 
 	<p>
-	Then create a bucket with globally unique name and add the training set file as 'csv' file to the bucket. For training the model, "prediction.trainedmodels.insert" method is called, 
-	passing a unique name for this predictive model, and the bucket location of the training data as shown below. A full list of the methods are provided at https://developers.google.com/apis-explorer/#p/prediction/v1.6/prediction.
+	Then create a bucket with globally unique name and add the training set file as 'csv' file to the bucket. For training the model, 
+	"prediction.trainedmodels.insert" method is called, passing a unique name for this predictive model, and the bucket location of the training data as shown below. 
+	A full list of the methods are provided at https://developers.google.com/apis-explorer/#p/prediction/v1.6/prediction.
 	</p>
 <div>
     <pre class="prettyprint">
