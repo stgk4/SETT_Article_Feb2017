@@ -1,0 +1,170 @@
+prediction.trainedmodels.insert executed moments ago time to execute: 3833 ms
+Request
+
+ 
+POST https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels?key={YOUR_API_KEY}
+ 
+{
+ "id": "product-rating-predictor",
+ "storageDataLocation": "oci-prediction_api-demo/amazon_product_reviews.csv"
+}
+ 
+Response
+
+ 
+200
+ 
+- Show headers -
+  
+{
+ "kind": "prediction#training",
+ "id": "product-rating-predictor",
+ "selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/product-rating-predictor",
+ "storageDataLocation": "oci-prediction_api-demo/amazon_product_reviews.csv"
+}
+ 
+ 
+prediction.trainedmodels.get executed moments ago time to execute: 316 ms
+Request
+
+ 
+GET https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/product-rating-predictor?key={YOUR_API_KEY}
+ 
+ 
+Response
+
+ 
+200
+ 
+- Show headers -
+  
+{
+ "kind": "prediction#training",
+ "id": "product-rating-predictor",
+ "selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/product-rating-predictor",
+ "created": "2017-01-30T18:10:41.262Z",
+ "trainingStatus": "RUNNING"
+}
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TRAINING----------------------
+
+
+
+Request
+
+ 
+POST https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels?key={YOUR_API_KEY}
+ 
+{
+ "id": "rating-predictor",
+ "storageDataLocation": "oci-prediction_api-demo/product_reviews_amazon.csv"
+}
+ 
+Response
+
+ 
+200
+ 
+- Show headers -
+  
+{
+ "kind": "prediction#training",
+ "id": "rating-predictor",
+ "selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor",
+ "storageDataLocation": "oci-prediction_api-demo/product_reviews_amazon.csv"
+}
+ 
+ 
+ 
+ CHECK TRAINING--------------------
+ 
+ Request
+
+ 
+GET https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor?key={YOUR_API_KEY}
+ 
+ 
+Response
+
+ 
+200
+ 
+- Show headers -
+  
+{
+ "kind": "prediction#training",
+ "id": "rating-predictor",
+ "selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor",
+ "created": "2017-01-30T18:02:18.392Z",
+ "trainingComplete": "2017-01-30T18:02:50.081Z",
+ "modelInfo": {
+  "numberInstances": "500",
+  "modelType": "regression",
+  "meanSquaredError": "1.19"
+ },
+ "trainingStatus": "DONE"
+}
+
+TESTING--------------------
+
+Request
+
+ 
+POST https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor/predict?key={YOUR_API_KEY}
+ 
+{
+ "input": {
+  "csvInstance": [
+   "product seems ok, it should have looked as expected, parts were little delicate, overall it works just"
+  ]
+ }
+}
+ 
+Response
+
+ 
+200
+ 
+- Show headers -
+  
+{
+ "kind": "prediction#output",
+ "id": "rating-predictor",
+ "selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor/predict",
+ "outputValue": "3.756272"
+}
+ 
