@@ -24,7 +24,7 @@ rel="stylesheet" type="text/css" />
 <body>
     <!--#include virtual="header.shtml" -->
 
-    <h1>On the capabilities of Google's prediction API for building practical machine-learning based applications</h1>
+    <h1>On the capabilities of Google's Prediction API for building practical machine-learning based applications</h1>
 
     <p class="author">
         by
@@ -38,28 +38,28 @@ rel="stylesheet" type="text/css" />
 	applications on a single machine in a single location to a stage where we are building applications on 
 	infrastructure which might be very remote to us. Even more today, we are able to leverage pre-built applications 
 	which are offered as a service to make Machine Learning work for us. Enterprises or individuals trying to solve 
-	a problem with machine learning, do not have to worry about fault tolerance of the machines, performance 
+	a problem with machine learning, do not have to worry about fault tolerance aspects of the machines, performance 
 	limitations, or tuning the machine learning algorithms. Instead, they can invest time on data preparation, 
 	incorporating the domain knowledge in the machine learning system and acting on the offerings (prediction results) 
 	from these API's to create business value. Many advanced machine learning capabilities are made available to 
-	everyone by Prediction API's through a fast, reliable and cost-effective infrastructure. There are several prediction 
+	everyone by Prediction API's through a fast, reliable and cost-effective infrastructure. There are several Prediction 
 	API's available currently, such as 
 	<a target="_blank" href="https://aws.amazon.com/machine-learning/">Amazon Machine Learning</a>, 
 	<a target="_blank" href="https://bigml.com/api/">Big ML</a>, 
-	<a target="_blank" href="https://cloud.google.com/prediction/">Google prediction API</a> and many others. 
-	While every prediction API differs in terms of their services, 
+	<a target="_blank" href="https://cloud.google.com/prediction/">Google Prediction API</a> and many others. 
+	While every Prediction API differs in terms of their services, 
 	there is no single standard metric to evaluate the performance of these API's. A comparison study of some of the 
-	prediction API's can be found 
+	Prediction API's can be found 
 	<a target="_blank" href="https://www.programmableweb.com/news/comparing-four-machine-learning-apis-performance/elsewhere-web/2015/09/19">here</a>. 
  
 	However, it is possible to identify an API or a combination of them that works better for the context of a specific application which needs expert knowledge and deeper look into 
 	the context of the problem, details of which is out of the scope of the current topic, and will be the topic of a future article.  For the purposes of this article, we chose to 
-	describe the capabilities of the Google Prediction API. In this article, you will learn about the possibilities the Google's prediction API offers, with respect to a set of 
+	describe the capabilities of the Google Prediction API. In this article, you will learn about the possibilities the Google's Prediction API offers, with respect to a set of 
 	representative use cases.
 	</p>
 	
 	
-	<h3>What is Goole Prediction API?</h3>
+	<h3>What is Google Prediction API?</h3>
 	
 	<p>
 	Google’s Prediction API offers machine learning as a service. It learns from a user’s given training data and provides pattern matching and machine learning capabilities. The 
@@ -69,18 +69,18 @@ building applications ranging from spam detection to recommendation engines with
 	</p>
 	
 	<p>
-	The following are the range of use-cases that can be built leveraging the capabilities of Google’s Prediction API: 
+	The following are a representative set of use cases that can be built leveraging the capabilities of Google’s Prediction API: 
 	</p>
 	<ul>
 		<li> Predict future trends from a given historical series of data.
 		<li> Detect if a given email is a spam.
 		<li> Recommend a product/movie to the user based on the interests of a similar user.
 		<li> Identify whether a given user will default based on the credit usage history of the user.
-		<li> Activity detection from smartphone sensor data using labeled activity datasets. 
+		<li> Detect activity from smartphones using labeled sensor datasets. 
 	</ul>
 	
 	<p>
-	On a given labeled dataset, prediction API performs the following specific tasks:  
+	On a given labeled dataset, the Prediction API performs the following specific tasks:  
 	</p>
 	<ul>
 	<li>Given a new item, predict a numeric value for that item, based on similarly valued examples in its training data 
@@ -90,16 +90,15 @@ building applications ranging from spam detection to recommendation engines with
 	</ul>
 	
 	<p>
-	The bottom line of all the above-discussed applications is to predict a world state parameter (target label value) for an unknown example based on the past labeled data 
-examples. The prediction API will take care  of building best suitable models using Google’s fast and reliable computing resources. Most prediction queries take less than 
-200ms.	
+	The bottom line of all the above-discussed applications is the ability to predict a world state parameter (target label value) for an unknown example based on the past labeled data 
+examples. The Prediction API will take care  of building suitable models using Google’s fast and reliable computing resources. Most prediction queries take less than 200ms.	
 	</p>
 	
-	<h3>How does the prediction API work?</h3>
+	<h3>How does the Prediction API work?</h3>
 	<p>
-	The implementation of the Google's prediction API can be pretty much defined as a black-box approach.  In other words, there is no way to control the model-selection, 
+	The implementation of the Google's Prediction API is basically a black-box approach. In other words, there is no way to control the model-selection, 
 model-tuning and things that happen in the background during training. The model configuration is restricted to specifying the class of problem whether it is "Classification" 
-vs. "Regression" during the data preparation for the training process. On a very high level, the information flow in the prediction API looks as shown in the following:
+vs. "Regression" during the data preparation for the training process. At a very high level, the information flow in the Prediction API looks as shown in the following:
 	</p>
 	
 	<div id="container">
@@ -134,10 +133,10 @@ done with your own model implementation.
 	</p>
 	
 	<p>
-	For the project, you will be working, you need to enable the Prediction API. To use the Prediction API, the only cloud service required is “Cloud Storage” which is enabled by 
-default in your Google Cloud Project. This is required to create a bucket, the location where your training set is uploaded. Prediction API offers a simple way to train machine 
-learning models through a RESTful interface. To authorize the requests, your application must use “OAuth 2.0” protocol and the API does not support any other types of 
-protocols. The detailed information on the authorization is given <a target="_blank" href="https://developers.google.com/identity/protocols/OAuth2">Google OAuth</a> documentation.
+	For the project, you will be developing, you need to enable the Prediction API. To use the Prediction API, the only cloud service required is “Cloud Storage” which is enabled by 
+default in your Google Cloud Project. You are required to create a bucket in the location where your training set is uploaded. Prediction API offers a simple way to train machine 
+learning models through a RESTful interface. To authorize the requests, your application must use “OAuth 2.0” protocol -- the API does not support any other types of 
+protocols. The detailed information on the authorization is given in <a target="_blank" href="https://developers.google.com/identity/protocols/OAuth2">Google OAuth</a> documentation.
  
 
  
@@ -154,7 +153,7 @@ additional statistics like precision, recall, or F-score which  you would have t
 	<p>
 	For the resulting model which the API builds, you can make predictions for new example datasets by calling "trainedmodels.predict" method, this returns the parameters 
 "outputLabel" (numeric or String) and "outputMulti" which provide probability measures for each prediction class. The API assigns final predicted labels based on a voting 
-mechanism where a class with highest probability score is predicted as “outputLabel”. The “outputMulti” is useful in making multiple predictions, for example - “top three 
+mechanism where a class with highest probability score is predicted as “outputLabel”. The “outputMulti” is useful in making multiple predictions, for example: “top three 
 predicted labels”.  The trained model remains until it is explicitly deleted. Apart from the training session, it does not continue to learn from the Predict queries. However, 
 the API provides a “trainedmodels.update” method which can be used to make update calls with additional examples. The applications that constantly fetch the user data can take 
 advantage of this method to achieve better performance by improving the models on a continuous basis.
@@ -172,9 +171,9 @@ identify a model that fits your scenario.
 	With the Prediction API, you don’t need to worry about these steps, since the API automatically trains and tests a lot of complex models, tuned with different parameters, 
 choosing the best one for the final evaluation. The model which API finally comes up with would have been the one you end up after so many iterations of tuning the model 
 parameters. Even, the model evaluation is handled by the API itself. All you need to worry and work about is providing a valid data source in the required format to the API. 
-Google's black-box implementation approach for prediction API is intended to ease the implementation for non-coders. In a way, the mathematical expertise required to build, 
+Google's black-box implementation approach for Prediction API is intended to ease the implementation for non-coders. In a way, the mathematical expertise required to build, 
 analyze the machine learning models, is eliminated by the capabilities of the API. One can invest more time in problem formulation, data collection and make a flawless end to 
-end implementation, by leveraging the algorithmic capabilities of prediction API.
+end implementation, by leveraging the algorithmic capabilities of Prediction API.
 	</p>
 	
 	
@@ -183,8 +182,8 @@ end implementation, by leveraging the algorithmic capabilities of prediction API
 	<p>
 	If you have a specific problem and do not have time, resources, or expertise to build a model, you can use from the gallery of user-submitted models which are hosted 
 	<a target="_blank" href="https://cloud.google.com/prediction/docs/gallery">here</a>. These models may be a paid service or free to use, depending upon the hosted owner. 
-	The gallery currently consists of models built by Prediction API team itself and does not 
-	contain any models built other users (as of the time of this article is published). The Prediction API is working to enable customers to expose their model for paid use by other 
+	The gallery currently consists of models built by the Prediction API team itself and does not 
+	contain any models built other users (as of the time of this article is published). The Prediction API enables customers to expose their model for paid use by other 
 	API users in the future. As described in the documentation, the only method call supported on a hosted model is “predict”. 	
 	The gallery will list the URL required for a prediction call to a specific model. Note that hosted models are versioned; this means that when a model is retrained, it will get a 
 	new path that includes the version number. You will need to periodically check the gallery to ensure that you're using the latest version of a hosted model. The model version 
@@ -192,10 +191,10 @@ end implementation, by leveraging the algorithmic capabilities of prediction API
 	</p>
 	
 
-<h3>Usecase-1: Predicting user rating from product reviews</h3>
+<h3>Use case 1: Predicting user rating from product reviews</h3>
 	
 	<p>
-	To illustrate the use of the prediction API for regression, a problem involving prediction of product rating (real-valued) for a given product review is demonstrated. 
+	To illustrate the use of the Prediction API for regression, a problem involving prediction of product rating (real-valued) for a given product review is demonstrated. 
 	Typically, the traditional review problem aims at recommending products to a user based on the user ratings and preferences. 
 	Here, the current problem approaches in a kind of reverse format which involves predicting a reasonable rating for a given user product review using the model 
 	trained from amazon food product reviews data which can be found
@@ -212,15 +211,15 @@ end implementation, by leveraging the algorithmic capabilities of prediction API
 	<ul>
 	
 	      	
-	<li>determine if the problem requires regression or classification, and clearly identify what are you going to predict/classify</li>                   	
-	<li>identify all necessary assumptions, ensuring they do not affect the scope of the problem</li>      
+	<li>Determine if the problem requires regression or classification, and clearly identify what are you going to predict/classify</li>                   	
+	<li>Identify all necessary assumptions, ensuring they do not affect the scope of the problem</li>      
 	
 	</ul>
 	
 	<p>
 	For the current problem, since we are going to predict a rating which is a real value, this is clearly a regression problem. The second point above is 
-	important as you can have a redundant data which will, in turn, affects the model accuracy. A detailed description and scope of machine learning algorithms were described in 
-	our previous article which can be found at 
+	important as you can have redundant data which will, in turn, affects the model accuracy. A detailed description and scope of machine learning algorithms were described in 
+	our previous SETT article which can be found 
 	<a target="_blank" href="https://www.ociweb.com/resources/publications/sett/february-2015-welcome-to-the-machine-learning/">here</a>.
 	
 	Typically, if the features are too specific to the current dataset, you may end up with a very large generalization error, resulting in overfitting. This is the piece you need to 
@@ -233,7 +232,7 @@ end implementation, by leveraging the algorithmic capabilities of prediction API
 	and each column represents a meta-data corresponding to the review. Usually, there may be columns not of interest to a specific problem, so filtering 
 	those and including only relevant features will lead to a better model. Accordingly, we prepare our data and make sure to include the label in the first column as mentioned in 
 	the API documentation. At this point, each row consists of a rating, review summary and review text. We now setup the project, which involves 1) creating a 
-	Google Cloud Platform project (you can also build on top of an existing one), 2) enabling billing and 3) enabling the prediction API for the project. 
+	Google Cloud Platform project (you can also build on top of an existing one), 2) enabling billing and 3) enabling the Prediction API for the project. 
 	</p>
 	Note: A globally unique project id is chosen for the project name and a number is assigned when the cloud platform project is created. Detailed descriptions of these steps are 
 	provided <a target="_blank" href="https://cloud.google.com/resource-manager/docs/creating-project">here</a>.
@@ -272,7 +271,7 @@ end implementation, by leveraging the algorithmic capabilities of prediction API
 </div>
 
 <p>
-To check the status of Training, use the "prediction.trainedmodels.get" method, by passing the ID of the predictive model as shown below.
+To check the status of Training, use the "prediction.trainedmodels.get" method by passing the ID of the predictive model as shown below.
 <!-- GET https://www.googleapis.com/prediction/v1.6/projects/[PROJECT_ID]/trainedmodels/sentiment-identifier -->
 </p>
 
@@ -317,10 +316,10 @@ passing the name of the model and the query.
     <figcaption>Prediction response containing the prediction label and probability scores
 </div>
 	
-<h3>Usecase-2: Sentiment analysis</h3>
+<h3>Use case 2: Sentiment analysis</h3>
 	
 	<p>
-	To illustrate the use of the prediction API for classification, a simple binary classification problem is shown to classify positive or negative sentiment from the Twitter sentiment analysis 
+	To illustrate the use of the Prediction API for classification, a simple binary classification problem is shown to classify positive or negative sentiment from the Twitter sentiment analysis 
 	corpus dataset found <a target="_blank" href="http://thinknook.com/twitter-sentiment-analysis-training-corpus-dataset-2012-09-22/">here</a>.
 	</p>
 	
@@ -371,7 +370,7 @@ passing the name of the model and the query.
 	
 	<h3>Conclusions</h3>
 	<p>
-	As of now, the Google prediction API provides a machine learning capability that is abstracted and simplified substantially for developers. The control is only	in the data 
+	As of now, the Google Prediction API provides a machine learning capability that is abstracted and simplified substantially for developers. The control is only	in the data 
 preparation and adding additional datasets for updating the model, these forms the either end-points of the machine learning pipeline. Key advantages of this approach are that 
 it saves a lot of time in building the models, and it provides flexibility for adding additional datasets even after the training is completed, enabling simple model updates on 
 the fly.
