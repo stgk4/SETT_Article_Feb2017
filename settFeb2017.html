@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
 
-    <meta name="description" content="Docker vs Vagrant" />
-    <meta name="keywords" content="SETT, OCI, Docker, Vagrant" />
-    <meta name="author" content="Yong Fu" />
+    <meta name="description" content="Google prediction API" />
+    <meta name="keywords" content="SETT, OCI, Machine Learning, Google, Prediction API" />
+    <meta name="author" content="Srinivas Chakravarthi Thandu" />
     <title>SETT Feb 2017 - Prediction API</title>
 
     <link rel="alternate" type="application/rss+xml" title="RSS" 
@@ -24,11 +24,11 @@ rel="stylesheet" type="text/css" />
 <body>
     <!--#include virtual="header.shtml" -->
 
-    <h1>On the capabilities of Google's prediction API for building practical applications</h1>
+    <h1>On the capabilities of Google's prediction API for building practical machine-learning based applications</h1>
 
     <p class="author">
         by
-        <br/> Data Analytics Group
+        <br/> Srinivas Chakravarthi Thandu, Software Engineer
         <br/>Object Computing, Inc. (OCI)
     </p>
 
@@ -43,16 +43,19 @@ rel="stylesheet" type="text/css" />
 	incorporating the domain knowledge in the machine learning system and acting on the offerings (prediction results) 
 	from these API's to create business value. Many advanced machine learning capabilities are made available to 
 	everyone by Prediction API's through a fast, reliable and cost-effective infrastructure. There are several prediction 
-	API's available currently, such as Amazon Machine Learning, Big ML, Google prediction API and many others. While every prediction API differs in terms of their services, 
-there is no single standard metric to evaluate the performance of these API's [a comparison study of some of the 
-prediction API's can be found at
+	API's available currently, such as 
+	<a target="_blank" href="https://aws.amazon.com/machine-learning/">Amazon Machine Learning</a>, 
+	<a target="_blank" href="https://bigml.com/api/">Big ML</a>, 
+	<a target="_blank" href="https://cloud.google.com/prediction/">Google prediction API</a> and many others. 
+	While every prediction API differs in terms of their services, 
+	there is no single standard metric to evaluate the performance of these API's. A comparison study of some of the 
+	prediction API's can be found 
+	<a target="_blank" href="https://www.programmableweb.com/news/comparing-four-machine-learning-apis-performance/elsewhere-web/2015/09/19">here</a>. 
  
-https://www.programmableweb.com/news/comparing-four-machine-learning-apis-performance/elsewhere-web/2015/09/19
- 
-However, it is possible to identify an API or a combination of them that works better for the context of a specific application which needs expert knowledge and deeper look into 
-the context of the problem, details of which is out of the scope of the current topic, and will be the topic of a future article.  For the purposes of this article, we chose to 
-describe the capabilities of the Google Prediction API. In this article, you will learn about the possibilities the Google's prediction API offers, with respect to a set of 
-representative use cases.
+	However, it is possible to identify an API or a combination of them that works better for the context of a specific application which needs expert knowledge and deeper look into 
+	the context of the problem, details of which is out of the scope of the current topic, and will be the topic of a future article.  For the purposes of this article, we chose to 
+	describe the capabilities of the Google Prediction API. In this article, you will learn about the possibilities the Google's prediction API offers, with respect to a set of 
+	representative use cases.
 	</p>
 	
 	
@@ -92,7 +95,7 @@ examples. The prediction API will take care  of building best suitable models us
 200ms.	
 	</p>
 	
-	<h3>How does the prediction API works?</h3>
+	<h3>How does the prediction API work?</h3>
 	<p>
 	The implementation of the Google's prediction API can be pretty much defined as a black-box approach.  In other words, there is no way to control the model-selection, 
 model-tuning and things that happen in the background during training. The model configuration is restricted to specifying the class of problem whether it is "Classification" 
@@ -103,7 +106,7 @@ vs. "Regression" during the data preparation for the training process. On a very
       <a href="#">
 	<figure>
 	  <img src="./figures/prediction_api.jpg" alt="inception" width="1000" height="400"/>
-	  <figcaption>Information flow of Predcition API</figcaption>
+	  <figcaption>Information flow of Prediction API</figcaption>
 	</figure>
       </a>
     </div>
@@ -134,9 +137,9 @@ done with your own model implementation.
 	For the project, you will be working, you need to enable the Prediction API. To use the Prediction API, the only cloud service required is “Cloud Storage” which is enabled by 
 default in your Google Cloud Project. This is required to create a bucket, the location where your training set is uploaded. Prediction API offers a simple way to train machine 
 learning models through a RESTful interface. To authorize the requests, your application must use “OAuth 2.0” protocol and the API does not support any other types of 
-protocols. The detailed information on the authorization is given at:
+protocols. The detailed information on the authorization is given <a target="_blank" href="https://developers.google.com/identity/protocols/OAuth2">Google OAuth</a> documentation.
  
-https://developers.google.com/identity/protocols/OAuth2
+
  
 The training phase is initialized by calling the "trainedmodels.insert" method. The training phase is asynchronous, where you can poll the API using "prediction.trainedmodels.get" 
 method to check the status of the training. In the response, when the "trainingStatus" property changes to "Done" from "Running", then the model training is completed. Only after 
@@ -145,7 +148,7 @@ this, can you start making predictions for new data examples.
 	
 	<p>
 	The API provides a "trainedmodels.analyze” method which specifies the "modelDescription" that contains the confusion Matrix in the JSON format. It will not provide any 
-additional statistics like precision, recall, or F-score which   	you would have to calculate manually.  
+additional statistics like precision, recall, or F-score which  you would have to calculate manually.  
 	</p>
 	
 	<p>
@@ -178,29 +181,29 @@ end implementation, by leveraging the algorithmic capabilities of prediction API
 	<h3>Using a Hosted Model</h3>
 	
 	<p>
-	If you have a specific problem and do not have time, resources, or expertise to build a model, you can use from the gallery of user-submitted models which are hosted at
- 
-https://cloud.google.com/prediction/docs/gallery
- 
-These models may be a paid service or free to use, depending upon the hosted owner. The gallery currently consists of models built by Prediction API team itself and does not 
-contain any models built other users (as of the time of this article is published). The Prediction API is working to enable customers to expose their model for paid use by other 
-API users in the future. As described in the documentation, the only method call supported on a hosted model is “predict”. 	
-The gallery will list the URL required for a prediction call to a specific model. Note that hosted models are versioned; this means that when a model is retrained, it will get a 
-new path that includes the version number. You will need to periodically check the gallery to ensure that you're using the latest version of a hosted model. The model version 
-number appears in the access URL. Different versions might return different scores for the same input.  
+	If you have a specific problem and do not have time, resources, or expertise to build a model, you can use from the gallery of user-submitted models which are hosted 
+	<a target="_blank" href="https://cloud.google.com/prediction/docs/gallery">here</a>. These models may be a paid service or free to use, depending upon the hosted owner. 
+	The gallery currently consists of models built by Prediction API team itself and does not 
+	contain any models built other users (as of the time of this article is published). The Prediction API is working to enable customers to expose their model for paid use by other 
+	API users in the future. As described in the documentation, the only method call supported on a hosted model is “predict”. 	
+	The gallery will list the URL required for a prediction call to a specific model. Note that hosted models are versioned; this means that when a model is retrained, it will get a 
+	new path that includes the version number. You will need to periodically check the gallery to ensure that you're using the latest version of a hosted model. The model version 
+	number appears in the access URL. Different versions might return different scores for the same input.  
 	</p>
+	
 
-	<h3>Prediction API: A real use-case for sentiment analysis</h3>
+<h3>Usecase-1: Predicting user rating from product reviews</h3>
 	
 	<p>
-	To illustrate the use of the prediction API, a simple binary classification problem is shown to classify positive or negative sentiment from the Twitter sentiment analysis 
-corpus dataset found at
- 
-http://thinknook.com/twitter-sentiment-analysis-training-corpus-dataset-2012-09-22/
-        	
-        	For working with a machine learning problem, one of the most important and time-consuming aspects is defining the problem appropriately and preparing the dataset 
-accordingly. Before all that, the problem should be analyzed and assessed to ensure that the problem is appropriate for applying a machine learning approach in the 
-first place. After all, not every problem is solvable using machine learning.  
+	To illustrate the use of the prediction API for regression, a problem involving prediction of product rating (real-valued) for a given product review is demonstrated. 
+	Typically, the traditional review problem aims at recommending products to a user based on the user ratings and preferences. 
+	Here, the current problem approaches in a kind of reverse format which involves predicting a reasonable rating for a given user product review using the model 
+	trained from amazon food product reviews data which can be found
+	<a target="_blank" href="http://snap.stanford.edu/data/web-FineFoods.html">here</a>. 
+	 	
+	For working with a machine learning problem, one of the most important and time-consuming aspects is defining the problem appropriately and preparing the dataset 
+	accordingly. Before all that, the problem should be analyzed and assessed to ensure that the problem is appropriate for applying a machine learning approach in the 
+	first place. After all, not every problem is solvable using machine learning.  
 	</p>
 	
 	<p>
@@ -209,64 +212,60 @@ first place. After all, not every problem is solvable using machine learning.
 	<ul>
 	
 	      	
-<li>determine if the problem requires regression or classification, and clearly identify what are you going to predict/classify</li>                   	
-<li>identify all necessary assumptions, ensuring they do not affect the scope of the problem</li>      
+	<li>determine if the problem requires regression or classification, and clearly identify what are you going to predict/classify</li>                   	
+	<li>identify all necessary assumptions, ensuring they do not affect the scope of the problem</li>      
 	
 	</ul>
 	
 	<p>
-	For our current problem, since we are going to identify a predefined label "Negative" or "Positive", this is clearly a classification problem. The second point above is 
-important as you can have a redundant data which will, in turn, affects the model accuracy. A detailed description and scope of machine learning algorithms were described in 
-our previous article which can be found at
-https://www.ociweb.com/resources/publications/sett/february-2015-welcome-to-the-machine-learning/
- 
-Typically, if the features are too specific to the current dataset, you may end up with a very large generalization error, resulting in overfitting. This is the piece you need to 
-handle yourself, to better assist the Prediction API in predicting accurate labels for your test inputs. Although this preprocessing step is not mandatory for using Prediction API, 
-you need it to build a good model corresponding to your training set.
+	For the current problem, since we are going to predict a rating which is a real value, this is clearly a regression problem. The second point above is 
+	important as you can have a redundant data which will, in turn, affects the model accuracy. A detailed description and scope of machine learning algorithms were described in 
+	our previous article which can be found at 
+	<a target="_blank" href="https://www.ociweb.com/resources/publications/sett/february-2015-welcome-to-the-machine-learning/">here</a>.
+	
+	Typically, if the features are too specific to the current dataset, you may end up with a very large generalization error, resulting in overfitting. This is the piece you need to 
+	handle yourself, to better assist the Prediction API in predicting accurate labels for your test inputs. Although this preprocessing step is not mandatory for using Prediction API, 
+	you need it to build a good model corresponding to your training set.
 	</p>
 	
 	<p>
-	The dataset chosen for the current problem contains about 1.5 million rows and 4 columns. Usually, there may be columns not of interest to a specific problem, so filtering 
-those and including only relevant features will lead to a better model. Accordingly, we prepare our data and make sure to include the label in the first column as mentioned in 
-the API     	documentation. We now setup the project, which involves 1) creating a Google Cloud Platform project (you can also build on top of an existing one), 2) enabling 
-billing and 3) enabling the prediction API for the project. 
+	The dataset chosen for the current problem contains 568,454 product reviews collected from 256,059 users for 74,258 products. Each row represents a product review
+	and each column represents a meta-data corresponding to the review. Usually, there may be columns not of interest to a specific problem, so filtering 
+	those and including only relevant features will lead to a better model. Accordingly, we prepare our data and make sure to include the label in the first column as mentioned in 
+	the API documentation. At this point, each row consists of a rating, review summary and review text. We now setup the project, which involves 1) creating a 
+	Google Cloud Platform project (you can also build on top of an existing one), 2) enabling billing and 3) enabling the prediction API for the project. 
 	</p>
 	Note: A globally unique project id is chosen for the project name and a number is assigned when the cloud platform project is created. Detailed descriptions of these steps are 
-provided at https://developers.google.com/ad-exchange/rtb/open-bidder/google-app-guide
+	provided <a target="_blank" href="https://cloud.google.com/resource-manager/docs/creating-project">here</a>.
+	
 
 	<p>
-	
 	Next, you must create a bucket with globally unique name and add the training set file as 'CSV' file to the bucket. For training the model, the 
-"prediction.trainedmodels.insert" method is called,   passing a unique name for this predictive model, and the bucket location of the training data as shown below. A full list 
-of the methods is provided at
- 
-https://developers.google.com/apis-explorer/#p/prediction/v1.6/prediction
-
+	"prediction.trainedmodels.insert" method is called,   passing a unique name for this predictive model, and the bucket location of the training data as shown below. A full list 
+	of the methods is provided <a target="_blank" href="https://developers.google.com/apis-explorer/#p/prediction/v1.6/prediction">here</a>.
 	</p>
+
 <div>
     <pre class="prettyprint">
 	POST https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels?key={YOUR_API_KEY}
 	{
-		"id": "sentiment-identifier_12500",
-		"storageDataLocation": "oci-prediction_api-demo/twitter_data_12500.csv"
+		"id": "rating-predictor",
+		"storageDataLocation": "oci-prediction_api-demo/product_reviews_amazon.csv"
 	}
     </pre>
     <figcaption>Request format for initializing the training
 </div>
 
-<p>
-
-A successful response looks like:
+<p> A successful response looks like: </p>
 <div>
     <pre class="prettyprint">
 	Response 200
 	- Show headers -
 	{
 		"kind": "prediction#training",
-		"id": "sentiment-identifier_12500",
-		"selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/sentiment
-		-identifier_12500",
-		"storageDataLocation": "oci-prediction_api-demo/twitter_data_12500.csv"
+		"id": "rating-predictor",
+		"selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor",
+		"storageDataLocation": "oci-prediction_api-demo/product_reviews_amazon.csv"
 	}
     </pre>
     <figcaption>Response to the training request
@@ -279,7 +278,7 @@ To check the status of Training, use the "prediction.trainedmodels.get" method, 
 
 <div>
     <pre class="prettyprint">
-		GET https://www.googleapis.com/prediction/v1.6/projects/[PROJECT_ID]/trainedmodels/sentiment-identifier
+		GET https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor?key={YOUR_API_KEY}
     </pre>
     <figcaption>Querying about the status of training
 </div>
@@ -288,6 +287,48 @@ To check the status of Training, use the "prediction.trainedmodels.get" method, 
 After the training is complete, you can send queries to the service to be evaluated against the predictive model. To do so, call the "prediction.trainedmodels.predict" method, 
 passing the name of the model and the query.
 </p>
+
+
+<div>
+    <pre class="prettyprint">
+		POST https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor/predict?key={YOUR_API_KEY}
+		{
+			"input": {
+			"csvInstance": [
+			"product seems ok, it should have looked as expected, parts were little delicate, overall it tastes just ok"
+			]
+			}
+		}
+    </pre>
+    <figcaption>Sending a prediction query to the Prediction API
+</div>
+
+<div>
+    <pre class="prettyprint">
+	200
+	- Show headers -
+	{
+		"kind": "prediction#output",
+		"id": "rating-predictor",
+		"selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/rating-predictor/predict",
+		"outputValue": "3.756272"
+	}
+    </pre>
+    <figcaption>Prediction response containing the prediction label and probability scores
+</div>
+	
+<h3>Usecase-2: Sentiment analysis</h3>
+	
+	<p>
+	To illustrate the use of the prediction API for classification, a simple binary classification problem is shown to classify positive or negative sentiment from the Twitter sentiment analysis 
+	corpus dataset found <a target="_blank" href="http://thinknook.com/twitter-sentiment-analysis-training-corpus-dataset-2012-09-22/">here</a>.
+	</p>
+	
+	<p>
+	For the current problem, since we are going to identify a predefined label "Negative" or "Positive", this is a classification problem. 
+	The dataset chosen for the current problem contains about 1.5 million rows and 4 columns. A classification model is built and the following demonstrates the classification 
+	scenario on the resultant model:
+	</p>
 
 
 <div>
@@ -303,7 +344,6 @@ passing the name of the model and the query.
     </pre>
     <figcaption>Sending a prediction query to the Prediction API
 </div>
-
 
 <div>
     <pre class="prettyprint">
@@ -346,7 +386,7 @@ the fly.
 <h3>Acknowledgements</h3>
 
  <p>
- We want to thank our colleagues Mike Martinez, Huang-Ming Huang, Carl Turza from OCI for very useful and professional comments that greatly improved the quality of this article.
+ I want to thank my colleagues Yong Fu, Huang-Ming Huang, Kevin Stanley, Mike Martinez, Carl Turza from OCI for very useful and professional comments that greatly improved the quality of this article.
 </p>
 
 
@@ -379,19 +419,18 @@ t>
         SyntaxHighlighter.all()
     </script>
 
-    <h2>Futher Reading</h2>
+    <h2>Further Reading</h2>
     <ul>
-    <li> <a 
-href="https://software.intel.com/sites/landingpage/IntrinsicsGuide/#techs=AVX">The 
-Dataflow Model: A Practical Approach to Balancing
-	Correctness, Latency, and Cost in Massive-Scale,
-	Unbounded,Out-of-Order Data Processing</a>, techniqual
-	details of dataflow implementation.
+	
+	<li><a href="https://www.ociweb.com/resources/publications/sett/february-2015-welcome-to-the-machine-learning/"> 
+	Welcome to Machine Learning, SETT Article, February 2015</a>.
+	</li>
+	
+    <li><a href="https://cloud.google.com/ml/docs/concepts/technical-overview">
+	Overview of Google Cloud Machine Learning</a>.
     </li>
-    <li><a href=""></a></li>
-    </ul>
-
-     
+    
+    </ul> 
 </body>
 
 </html>
