@@ -1,3 +1,7 @@
+http://snap.stanford.edu/data/web-FineFoods.html
+
+https://snap.stanford.edu/data/web-Amazon.html
+
 prediction.trainedmodels.insert executed moments ago time to execute: 3833 ms
 Request
 
@@ -46,6 +50,33 @@ Response
  "trainingStatus": "RUNNING"
 }
  
+
+Request
+
+ 
+GET https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/product-rating-predictor?key={YOUR_API_KEY}
+ 
+ 
+Response
+
+ 
+200
+ 
+- Show headers -
+  
+{
+ "kind": "prediction#training",
+ "id": "product-rating-predictor",
+ "selfLink": "https://www.googleapis.com/prediction/v1.6/projects/oci-analytics/trainedmodels/product-rating-predictor",
+ "created": "2017-01-30T18:10:41.262Z",
+ "trainingComplete": "2017-01-30T19:45:27.130Z",
+ "modelInfo": {
+  "numberInstances": "568454",
+  "modelType": "regression",
+  "meanSquaredError": "34736565310211410000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.00"
+ },
+ "trainingStatus": "DONE"
+}
  
 
 
