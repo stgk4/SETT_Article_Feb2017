@@ -19,6 +19,12 @@ href="http://ociweb.com/sett/rss.xml" />
 rel="stylesheet" type="text/css" />
     <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" 
 rel="stylesheet" type="text/css" />
+    <style>
+        del { background-color: rgba(200,50,50,0.4); color: maroon; }
+        ins { background-color: rgba(50,200,50,0.4); color: purple; }
+        .mikecomment { background-color: rgba(50,50,200,0.4); color: yellow; }
+        .highlight { background-color: rgba(240,240,70,0.4); }
+    </style>
 </head>
 
 <body>
@@ -33,16 +39,17 @@ rel="stylesheet" type="text/css" />
     </p>
 
     <h3>Introduction</h3>
+      <span class='mikecomment'>Consider splitting this into 2 paragraphs.</span>
     <p>
 	Application development has continued to evolve over the last several decades. We have come so far from building 
 	applications on a single machine in a single location to a stage where we are building applications on 
-	infrastructure which might be very remote to us. Even more today, we are able to leverage pre-built applications 
+	infrastructure which might be very remote to us. Even more today<del> , </del> we are able to leverage pre-built applications 
 	which are offered as a service to make Machine Learning work for us. Enterprises or individuals trying to solve 
-	a problem with machine learning, do not have to worry about fault tolerance aspects of the machines, performance 
-	limitations, or tuning the machine learning algorithms. Instead, they can invest time on data preparation, 
+	a problem with machine learning<del> , </del> do not have to worry about fault tolerance aspects of the machines, performance 
+	limitations, or tuning the machine learning algorithms. Instead<del> , </del> they can invest time on data preparation, 
 	incorporating the domain knowledge in the machine learning system and acting on the offerings (prediction results) 
 	from these API's to create business value. Many advanced machine learning capabilities are made available to 
-	everyone by Prediction API's through a fast, reliable and cost-effective infrastructure. There are several Prediction 
+	everyone by Prediction API's through a fast, reliable<ins> , </ins> and cost-effective infrastructure. There are several Prediction 
 	API's available currently, such as 
 	<a target="_blank" href="https://aws.amazon.com/machine-learning/">Amazon Machine Learning</a>, 
 	<a target="_blank" href="https://bigml.com/api/">Big ML</a>, 
@@ -52,9 +59,9 @@ rel="stylesheet" type="text/css" />
 	Prediction API's can be found 
 	<a target="_blank" href="https://www.programmableweb.com/news/comparing-four-machine-learning-apis-performance/elsewhere-web/2015/09/19">here</a>. 
  
-	However, it is possible to identify an API or a combination of them that works better for the context of a specific application which needs expert knowledge and deeper look into 
-	the context of the problem, details of which is out of the scope of the current topic, and will be the topic of a future article.  For the purposes of this article, we chose to 
-	describe the capabilities of the Google Prediction API. In this article, you will learn about the possibilities the Google's Prediction API offers, with respect to a set of 
+	<del>However, it</del><ins>It</ins> is possible to identify an API or a combination of them that works better for the context of a specific application which needs expert knowledge and deeper look into 
+	the context of the problem, details of which is out of the scope of the current topic<del> , </del> and will be the topic of a future article.  For the purposes of this article<del> , </del> we chose to 
+	describe the capabilities of the Google Prediction API. In this article<del> , </del> you will learn about the possibilities the Google's Prediction API offers<del> , </del> with respect to a set of 
 	representative use cases.
 	</p>
 	
@@ -80,7 +87,7 @@ building applications ranging from spam detection to recommendation engines with
 	</ul>
 	
 	<p>
-	On a given labeled dataset, the Prediction API performs the following specific tasks:  
+	On a given labeled dataset<del> , </del> the Prediction API performs the following specific tasks:  
 	</p>
 	<ul>
 	<li>Given a new item, predict a numeric value for that item, based on similarly valued examples in its training data 
@@ -96,9 +103,9 @@ examples. The Prediction API will take care  of building suitable models using G
 	
 	<h3>How does the Prediction API work?</h3>
 	<p>
-	The implementation of the Google's Prediction API is basically a black-box approach. In other words, there is no way to control the model-selection, 
-model-tuning and things that happen in the background during training. The model configuration is restricted to specifying the class of problem whether it is "Classification" 
-vs. "Regression" during the data preparation for the training process. At a very high level, the information flow in the Prediction API looks as shown in the following:
+	The implementation of the Google's Prediction API is <del>basically </del>a black-box approach. In other words<del> , </del> there is no way to control the model-selection, 
+        model-tuning<ins> , </ins> <span class='highlight'>and things that happen in the background during training</span><span class='mikecomment'>maybe "and other training activities during training"?</span>. The model configuration is restricted to specifying the class of problem whether it is "Classification" 
+vs. "Regression" during the data preparation for the training process. At a very high level<del> , </del> the information flow in the Prediction API looks as shown in the following:
 	</p>
 	
 	<div id="container">
@@ -111,9 +118,9 @@ vs. "Regression" during the data preparation for the training process. At a very
     </div>
 	
 	<p>
-	 Input features can contain any type of data, and the API does not impose any constraints on input data types or any configuration process. The API will take care of value 
+	 Input features can contain any type of data<del> , and the</del><ins>. The</ins> API does not impose any constraints on input data types or any configuration process. The API will take care of value 
 normalization, feature selection and even missing values in the dataset. The important step is data preparation, as per the specified format which that Prediction API will 
-accept for training. The data simply looks like a big table, where each record is an input data example and the labels (target value) are specified in the very first column in 
+accept for training. The data simply looks like a big table<del> , </del> where each record is an input data example and the labels (target value) are specified in the very first column in 
 the training set. The only difference between the training and testing sets is that the first column will not be present in the testing set. The training data looks as shown 
 in the following figure.
 	</p>
@@ -128,25 +135,25 @@ in the following figure.
     </div>
 	
 	<p>
-	The biggest disadvantage with this type of implementation, however, is you cannot predict two different world state parameters (labels) at the same time, which otherwise can be 
+	The biggest disadvantage with this type of implementation<del> , however,</del> is <ins>that </ins>you cannot predict two different world state parameters (labels) at the same time, which otherwise can be 
 done with your own model implementation.
 	</p>
 	
 	<p>
-	For the project, you will be developing, you need to enable the Prediction API. To use the Prediction API, the only cloud service required is “Cloud Storage” which is enabled by 
-default in your Google Cloud Project. You are required to create a bucket in the location where your training set is uploaded. Prediction API offers a simple way to train machine 
+        <span class='highlight'>For the project, you will be developing, you </span><span class='mikecomment'>Maybe something like: "To develop a project model you will "</span>need to enable the Prediction API. To use the Prediction API<del> , </del> the only cloud service required is “Cloud Storage”<ins> , </ins> which is enabled by 
+default in your Google Cloud Project. You are required to create a bucket in the location where your training set is uploaded. <ins> The </ins>Prediction API offers a simple way to train machine 
 learning models through a RESTful interface. To authorize the requests, your application must use “OAuth 2.0” protocol -- the API does not support any other types of 
 protocols. The detailed information on the authorization is given in <a target="_blank" href="https://developers.google.com/identity/protocols/OAuth2">Google OAuth</a> documentation.
- 
+<div class='mikecomment'>I would mention here that an application wrapping a model could use the Identity provider service from google to enable the use of user Google logins in order to provide the authorization to the API.  This is well beyond the scope of the article though, so just a mention that perhaps the Google login might be used?</div> 
 
  
-The training phase is initialized by calling the "trainedmodels.insert" method. The training phase is asynchronous, where you can poll the API using "prediction.trainedmodels.get" 
+The training phase is initialized by calling the "trainedmodels.insert" method. The training phase is asynchronous, <del> where you can </del><ins> allowing you to </ins>poll the API using "prediction.trainedmodels.get" 
 method to check the status of the training. In the response, when the "trainingStatus" property changes to "Done" from "Running", then the model training is completed. Only after 
 this, can you start making predictions for new data examples.	
 </p>
 	
 	<p>
-	The API provides a "trainedmodels.analyze” method which specifies the "modelDescription" that contains the confusion Matrix in the JSON format. It will not provide any 
+        The API provides a "trainedmodels.analyze” method which specifies the "modelDescription" that contains the <span class='highlight'>confusion Matrix</span><span class='mikecomment'>Confusion Matrix or confusion matrix</span> in the JSON format. It will not <ins>directly </ins>provide any 
 additional statistics like precision, recall, or F-score which  you would have to calculate manually.  
 	</p>
 	
@@ -154,15 +161,15 @@ additional statistics like precision, recall, or F-score which  you would have t
 	For the resulting model which the API builds, you can make predictions for new example datasets by calling "trainedmodels.predict" method, this returns the parameters 
 "outputLabel" (numeric or String) and "outputMulti" which provide probability measures for each prediction class. The API assigns final predicted labels based on a voting 
 mechanism where a class with highest probability score is predicted as “outputLabel”. The “outputMulti” is useful in making multiple predictions, for example: “top three 
-predicted labels”.  The trained model remains until it is explicitly deleted. Apart from the training session, it does not continue to learn from the Predict queries. However, 
-the API provides a “trainedmodels.update” method which can be used to make update calls with additional examples. The applications that constantly fetch the user data can take 
+predicted labels”.  The trained model remains until it is explicitly deleted. Apart from the training session, it does not continue to learn from the Predict queries. <del>However, the</del>
+The API provides a “trainedmodels.update” method which can be used to make update calls with additional examples. The applications that constantly fetch the user data can take 
 advantage of this method to achieve better performance by improving the models on a continuous basis.
 	</p>
 	
 	<h3>Who is the audience for Prediction API's?</h3>
 	
 	<p>
-	Traditionally, to implement a machine learning capability, you normally start with preprocessing your data by performing some steps like dealing with missing data, input 
+	Traditionally<del> , </del> to implement a machine learning capability<del> , </del> you normally start with preprocessing your data by performing some steps like dealing with missing data, input 
 normalization, dataset splitting into training and validation sets. Then comes the step of model selection, based on the correlations in your training data, in which you 
 identify a model that fits your scenario.
 	</p>
